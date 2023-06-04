@@ -1,0 +1,3 @@
+#!/bin/bash
+find . -type f -name "*.gif" -exec sh -c 'printf "%s\n" "${1%.*}"' sh {} \; | sort | tr '\n' '\0' | xargs -0 -I {} basename "{}"
+echo
