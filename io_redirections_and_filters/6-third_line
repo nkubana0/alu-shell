@@ -1,17 +1,2 @@
 #!/bin/bash
-#!/bin/bash
-
-# Read the file line by line and store the third line in a variable
-count=0
-while IFS= read -r line
-do
-    ((count++))
-    if [ $count -eq 3 ]; then
-        third_line=$line
-        break
-    fi
-done < "iacta"
-
-# Display the third line
-echo "$third_line"
-
+print(open("iacta.txt").readlines()[2].strip())
