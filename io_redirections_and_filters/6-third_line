@@ -1,2 +1,2 @@
 #!/bin/bash
-print(open("iacta.txt").readlines()[2].strip())
+head -n 3 iacta | tail -n 1
