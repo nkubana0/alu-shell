@@ -1,2 +1,2 @@
 #!/bin/bash
-find . -type f -iname "*.gif" -execdir sh -c 'for file; do printf "%s\n" "${file##*/}" | cut -f1 -d"."; done' sh {} + | LC_COLLATE=C sort && echo
+find . -type f -iname '*.gif' -printf '%f\n' | sed 's/\.gif$//' | LC_COLLATE=C sort -f && echo
