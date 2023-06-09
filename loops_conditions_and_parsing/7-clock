@@ -13,3 +13,4 @@ do
   done
   hour=$((hour+1))
 done
+echo "Hour: 12"
