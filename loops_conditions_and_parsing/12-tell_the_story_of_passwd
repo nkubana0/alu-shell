@@ -1,10 +1,11 @@
-#!/usr/bin/env bash
-# This script tells a story based on the content of the /etc/passwd file
+#!/bin/bash
 
-while IFS=':' read -r username _ userid groupid _ home_directory shell
+IFS=":"
+
+while read -r username password userid groupid userinfo homedir shell
 do
-  password=$(grep "^$username:" /etc/shadow | awk -F':' '{print $2}')
-  user_info=$(grep "^$username:" /etc/passwd | awk -F':' '{print $5}')
-  
-  echo "The user $username is part of the $groupid gang, lives in $home_directory and rides $shell. $userid's place is protected by the passcode $password, more info about the user here: $user_info"
+    echo "The user $username is part of the $groupid gang, lives in $homedir and rides $shell."
+    echo "User $userid's place is protected by the passcode $password."
+    echo "More info about the user here: $userinfo"
+    echo
 done < /etc/passwd
