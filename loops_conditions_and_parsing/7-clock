@@ -1,16 +1,15 @@
 #!/usr/bin/env bash
-# This script displays the time for 12 hours and 59 minutes
+# display the hours and minutes of a clock
 
 hour=0
-while [ $hour -lt 12 ]
+while [ $hour -le 12 ]
 do
-  echo "Hour: $hour"
-  minute=1
-  while [ $minute -le 59 ]
-  do
-    echo $minute
-    minute=$((minute+1))
-  done
-  hour=$((hour+1))
-done
-echo "Hour: 12"
+	echo "Hour: $hour"
+	min=1
+	while [ $min -le 59 ]
+	do
+	        echo "$min"
+		(( min ++ ))
+	done
+	(( hour ++))
+done	
