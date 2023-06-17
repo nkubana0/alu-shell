@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
-# This script tells a story based on the content of the /etc/passwd file
+# writes a story using the etc/passwd file
 
-while IFS=':' read -r username _ userid groupid _ home_directory shell
+while IFS=: read -r f1 f2 f3 f4 f5 f6 f7
 do
-  password=$(grep "^$username:" /etc/shadow | awk -F':' '{print $2}')
-  user_info=$(grep "^$username:" /etc/passwd | awk -F':' '{print $5}')
-
-  echo "The user $username is part of the $groupid gang, lives in $home_directory and rides $shell. $userid's place is protected by the passcode $password, more info about the user here: $user_info"
-done < /etc/passwd
+	echo "The user $f1 is part of the $f4 gang, lives in $f6 and rides $f7. $f3's place is protected by the passcode $f2, more info about the user here: $f5"
+done < "/etc/passwd"
