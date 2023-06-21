@@ -1,6 +1,3 @@
 #!/usr/bin/env bash
-# This script displays a statement indefinitely
-while true; do
-    echo "To infinity and beyond"
-    sleep 2
-done
+# This script kills a process using command kill
+kill "$(ps -x | pgrep -f beyond)"
