@@ -2,6 +2,6 @@
 # This script writes "I am alive!" to the file /tmp/my_process and in between every "I am alive!" message, the program should pause for 2 seconds
 
 while true; do 
-echo " I am alive!" >> /tmp/my_process
-sleep 
+  echo "I am alive!" >> /tmp/my_process
+  sleep 
 done 
