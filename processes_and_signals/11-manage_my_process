@@ -1,50 +1,34 @@
 #!/usr/bin/env bash
-#Start manage_my_process
-#Check if the manage_my_process is already running
-PID_FILE="/var/run/my_process.pid"
-PROCESS_NAME="manage_my_process"
-
-start_process() {
-    if [ -f "$PID_FILE" ]; then
-        echo "$PROCESS_NAME is already running."
-    else
-        ./manage_my_process >/dev/null 2>&1 &
-        echo -n $! > "$PID_FILE"
-        echo "$PROCESS_NAME started"
-    fi
+# Bash script manages manage_my_process
+start() {
+     ./manage_my_process &
+      echo "$!" > /var/run/my_process.pid
+      echo "manage_my_process started"
 }
-
-stop_process() {
-    if [ -f "$PID_FILE" ]; then
-        pid=$(cat "$PID_FILE")
-        kill "$pid"
-        rm "$PID_FILE"
-        echo "$PROCESS_NAME stopped"
-    else
-        echo "$PROCESS_NAME is not running."
-    fi
+stop() {
+       sudo rm -f /var/run/my_process.pid &
+       sudo pkill -f manage_my_process &
+	echo "manage_my_process stopped"
 }
-
-restart_process() {
-
-    echo "$PROCESS_NAME restarted"                                                                                                                     
+restart() {
+       sudo pkill manage_my_process &
+       rm /var/run/my_process.pid &
+      ./manage_my_process &
+       echo "$!" > /var/run/my_process.pid
+       echo "manage_my_process restarted"
 }
-
-case "$1" in
-    start)
-        start_process
-        ;;
-    stop)
-        stop_process
-        ;;
-    restart)
-        restart_process
-        ;;
-    *)
-        echo "Usage: manage_my_process {start|stop|restart}"
-        exit 1
-        ;;
-esac
-
-exit 0
-
+if [ $# -lt 1 ] || [ $# -ge 2 ]; then
+	echo "Usage: manage_my_process {start|stop|restart}"
+  else
+      case $1 in
+	      "start")
+		    start
+	    	    ;;
+		"stop")
+		    stop
+	  	    ;;
+	  	"restart")
+		    restart
+	 	    ;;
+    esac
+fi
